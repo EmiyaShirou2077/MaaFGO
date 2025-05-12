@@ -1,0 +1,185 @@
+{
+    "MinimizeMap": {
+        "recognition": "OCR",
+        "roi": [63,21,97,39],
+        "expected": "管理室",
+        "pre_delay": 3000,
+        "action": "MultiSwipe",
+        "swipes": [
+            {
+                "begin": [50, 400, 0, 0],
+                "end": [400, 400, 0, 0]
+            },
+            {
+                "begin": [1000, 400, 0, 0],
+                "end": [600, 400, 0, 0]
+            }
+        ],
+        "next": [
+            "scrollUp"
+        ]
+    },
+    "scrollUp":{
+        "action": "Swipe",
+        "begin": [500, 100, 0, 0],
+        "end": [500, 500, 0, 0],
+        "next": [
+            "ClickNextNode"
+        ],
+        "interrupt": [
+            "scrollDown"
+        ]
+    },
+    "ClickNextNode": {
+        "recognition": "TemplateMatch",
+        "roi": [13,5,1263,619],
+        "action": "Click",
+        "template": "下一个节点_full.png",
+        "threshold": 0.6,
+        "green_mask": true,
+        "target_offset": [0, 50, 0, 0],
+        "next": [
+            "ClickNextChapter"
+        ]
+    },
+    "scrollDown":{
+        "action": "Swipe",
+        "begin": [500, 500, 0, 0],
+        "end": [500, 100, 0, 0]
+    },
+    "ClickNextChapter": {
+        "recognition": "TemplateMatch",
+        "roi": [629,92,601,503],
+        "action": "Click",
+        "template": "下一个章节_full.png",
+        "threshold": 0.6,
+        "green_mask": true,
+        "next": [
+            "FormationSupport"
+        ],
+        "interrupt": [
+            "APRefill"
+        ]
+    },
+    "APRefill": {
+        "recognition": "OCR",
+        "roi": [559,33,158,36],
+        "expected": "行动力回复",
+        "next": [
+            "EatGoldApple"
+        ]
+    },
+    "EatGoldApple": {
+        "recognition": "OCR",
+        "roi": [452,269,131,50],
+        "expected": "黄金果实",
+        "action": "Click",
+        "next": [
+            "EatGoldAppleConfirmation"
+        ]
+    },
+    "EatGoldAppleConfirmation": {
+        "recognition": "OCR",
+        "roi": [789,543,92,44],
+        "expected": "决定",
+        "action": "Click"
+    },
+    "FormationSupport":{
+        "recognition": "OCR",
+        "roi": [832,211,95,28],
+        "expected": "最后登录",
+        "action": "Click",
+        "target": [135,292,0,0],
+        "next": [
+            "FormationConfirmation"
+        ]
+    },
+    "FormationConfirmation": {
+        "recognition": "OCR",
+        "roi": [1035,6,241,57],
+        "expected": "队伍确认",
+        "next": [
+            "StartTask"
+        ]
+    },
+    "StartTask": {
+        "recognition": "OCR",
+        "roi": [1099,646,136,47],
+        "expected": "开始任务",
+        "action": "Click",
+        "next": [
+            "Battle"
+        ],
+        "interrupt": [
+            "Story"
+        ]
+    },
+    "Story": {
+        "recognition": "OCR",
+        "roi": [1153,21,76,38],
+        "expected": "跳过",
+        "next": [
+            "SkipStory"
+        ]
+    },
+    "ClickGameRegion": {
+        "recognition": "OCR",
+        "roi": [502,618,278,98],
+        "expected": "请点击游戏界面",
+        "action": "Click",
+        "post_delay": 2000
+    },
+    "CloseMasterTask": {
+        "recognition": "OCR",
+        "roi": [398,545,84,40],
+        "expected": "关闭",
+        "action": "Click"
+    },
+    "SkipStory": {
+        "recognition": "OCR",
+        "roi": [1153,21,76,38],
+        "expected": "跳过",
+        "action": "Click",
+        "next": [
+            "SkipStoryConfirmation"
+        ]
+    },
+    "SkipStoryConfirmation": {
+        "recognition": "OCR",
+        "roi": [806,540,44,40],
+        "expected": "是",
+        "action": "Click",
+        "post_delay": 2000
+    },
+    "Battle": {
+        "recognition": "OCR",
+        "roi": [1169,287,50,49],
+        "expected": ["御主", "技能"],
+        "action": "Command",
+        "exec": "{RESOURCE_DIR}/AutoBattle.bat",
+        "next": [
+            "FinishTask"
+        ]
+    },
+    "FinishTask": {
+        "recognition": "OCR",
+        "roi": [1037,616,107,48],
+        "expected": "下一步",
+        "action": "Click",
+        "next": [
+            "ClickNextChapter",
+            "MinimizeMap"
+        ],
+        "interrupt": [
+            "ClickGameRegion",
+            "Story",
+            "DataUpdate"
+        ]   
+    },
+    "DataUpdate": {
+        "recognition": "OCR",
+        "roi": [392,541,90,42],
+        "expected": "关闭",
+        "action": "Click"
+    }
+}

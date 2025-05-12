@@ -1,3 +1,6 @@
 [submodule "assets/MaaCommonAssets"]
 	path = assets/MaaCommonAssets
 	url = https://github.com/MaaXYZ/MaaCommonAssets
+[submodule "assets/FGO-py"]
+	path = assets/FGO-py
+	url = https://github.com/hgjazhgj/FGO-py.git

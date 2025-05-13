@@ -1,5 +1,33 @@
 {
-    "MinimizeMap": {
+    "AutoProgress":{
+        "timeout": 60000,
+        "next":[
+            "MapFinish"
+        ],
+        "interrupt":[
+            "MapView",
+            "SelectChapter",
+            "Battle",
+            "Story",
+            "ClickGameRegion",
+            "CloseMasterTask",
+            "DataUpdate"
+        ]
+    },
+    "MapFinish":{
+        "recognition": "OCR",
+        "roi": [663,119,551,190],
+        "expected": "完成"
+    },
+    "MapView":{
+        "recognition": "OCR",
+        "roi": [63,21,97,39],
+        "expected": "管理室",
+        "next": [
+            "MinimizeMapandScrollUp"
+        ]
+    },
+    "MinimizeMapandScrollUp": {
         "recognition": "OCR",
         "roi": [63,21,97,39],
         "expected": "管理室",
@@ -13,21 +41,40 @@
             {
                 "begin": [1000, 400, 0, 0],
                 "end": [600, 400, 0, 0]
+            },
+            {   
+                "starting": 500,
+                "begin": [500, 100, 0, 0],
+                "end": [500, 500, 0, 0]
             }
         ],
         "next": [
-            "scrollUp"
-        ]
-    },
-    "scrollUp":{
-        "action": "Swipe",
-        "begin": [500, 100, 0, 0],
-        "end": [500, 500, 0, 0],
-        "next": [
             "ClickNextNode"
         ],
-        "interrupt": [
-            "scrollDown"
+        "interrupt":[
+            "MinimizeMapandScrollDown"
+        ]
+    },
+    "MinimizeMapandScrollDown": {
+        "recognition": "OCR",
+        "roi": [63,21,97,39],
+        "expected": "管理室",
+        "pre_delay": 3000,
+        "action": "MultiSwipe",
+        "swipes": [
+            {
+                "begin": [50, 400, 0, 0],
+                "end": [400, 400, 0, 0]
+            },
+            {
+                "begin": [1000, 400, 0, 0],
+                "end": [600, 400, 0, 0]
+            },
+            {   
+                "starting": 500,
+                "begin": [500, 500, 0, 0],
+                "end": [500, 100, 0, 0]
+            }
         ]
     },
     "ClickNextNode": {
@@ -35,17 +82,31 @@
         "roi": [13,5,1263,619],
         "action": "Click",
         "template": "下一个节点_full.png",
-        "threshold": 0.6,
+        "threshold": 0.4,
         "green_mask": true,
-        "target_offset": [0, 50, 0, 0],
+        "target_offset": [0, 50, 0, 0]
+    },
+    "SelectChapter":{
+        "recognition": "OCR",
+        "roi": [76,25,77,37],
+        "expected": "关闭",
         "next": [
             "ClickNextChapter"
+        ],
+        "interrupt": [
+            "DataUpdate",
+            "CloseMasterTask",
+            "ReturnToMap"
         ]
     },
-    "scrollDown":{
-        "action": "Swipe",
-        "begin": [500, 500, 0, 0],
-        "end": [500, 100, 0, 0]
+    "ReturnToMap": {
+        "recognition": "OCR",
+        "roi": [76,25,77,37],
+        "expected": "关闭",
+        "action": "Click",
+        "next": [
+            "MapView"
+        ]
     },
     "ClickNextChapter": {
         "recognition": "TemplateMatch",
@@ -55,10 +116,20 @@
         "threshold": 0.6,
         "green_mask": true,
         "next": [
-            "FormationSupport"
+            "FormationSupport",
+            "NoBattle"
         ],
         "interrupt": [
             "APRefill"
+        ]
+    },
+    "NoBattle": {
+        "recognition": "OCR",
+        "roi": [741,536,185,51],
+        "expected": ["任务开始"],
+        "action": "Click",
+        "next": [
+            "Story"
         ]
     },
     "APRefill": {
@@ -82,7 +153,8 @@
         "recognition": "OCR",
         "roi": [789,543,92,44],
         "expected": "决定",
-        "action": "Click"
+        "action": "Click",
+        "post_delay": 2000
     },
     "FormationSupport":{
         "recognition": "OCR",
@@ -106,13 +178,7 @@
         "recognition": "OCR",
         "roi": [1099,646,136,47],
         "expected": "开始任务",
-        "action": "Click",
-        "next": [
-            "Battle"
-        ],
-        "interrupt": [
-            "Story"
-        ]
+        "action": "Click"
     },
     "Story": {
         "recognition": "OCR",
@@ -165,20 +231,11 @@
         "recognition": "OCR",
         "roi": [1037,616,107,48],
         "expected": "下一步",
-        "action": "Click",
-        "next": [
-            "ClickNextChapter",
-            "MinimizeMap"
-        ],
-        "interrupt": [
-            "ClickGameRegion",
-            "Story",
-            "DataUpdate"
-        ]   
-    },
+        "action": "Click"
+        },
     "DataUpdate": {
         "recognition": "OCR",
-        "roi": [392,541,90,42],
+        "roi": [203,537,894,54],
         "expected": "关闭",
         "action": "Click"
     }

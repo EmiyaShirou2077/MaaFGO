@@ -4,3 +4,6 @@
 [submodule "assets/FGO-py"]
 	path = assets/FGO-py
 	url = https://github.com/hgjazhgj/FGO-py.git
+[submodule "dev_tools/YAMaaPE"]
+	path = dev_tools/YAMaaPE
+	url = https://github.com/kqcoxn/YAMaaPE.git

@@ -51,11 +51,11 @@ jobs:
 
   install:
     needs: meta
-    runs-on: windows-latest
+    runs-on: macos-latest
     strategy:
       matrix:
-        os: [windows]
-        arch: [x86_64]
+        os: [win, macos, linux, android]
+        arch: [aarch64, x86_64]
       fail-fast: false
 
     steps:
@@ -63,27 +63,41 @@ jobs:
         with:
           submodules: true
 
+      - name: Download MaaFramework
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: MaaXYZ/MaaFramework
+          fileName: "MAA-${{ matrix.os }}-${{ matrix.arch }}*"
+          latest: true
+          out-file-path: "deps"
+          extract: true
+
+      - name: Download MFAAvalonia
+        if: matrix.os != 'android'
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: SweetSmellFox/MFAAvalonia
+          fileName: "MFAAvalonia-*-${{ (matrix.os == 'win' && 'win') || (matrix.os == 'macos' && 'osx') || (matrix.os == 'linux' && 'linux') }}-${{ (matrix.arch == 'x86_64' && 'x64') || (matrix.arch == 'aarch64' && 'arm64') }}*"
+          latest: true
+          out-file-path: "MFA"
+          extract: true
+
       - name: Install
         shell: bash
         run: |
           python ./install.py ${{ needs.meta.outputs.tag }}
 
-      - name: Download MFA
-        if: ${{ matrix.os != 'android' }}
-        uses: robinraju/release-downloader@v1
-        with:
-          repository: SweetSmellFox/MFAAvalonia
-          fileName: "MFAAvalonia-*-${{ matrix.os }}-${{ matrix.arch }}*"
-          latest: true
-          out-file-path: "MFAAvalonia"
-          extract: true
-
-      - name: Install MFAAvalonia
-        if: ${{ matrix.os != 'android' }}
-        shell: bash
-        run: |
-          rm -rf MFAAvalonia/resource/base/model
-          cp -r MFAAvalonia/* install
+          if [[ "${{ matrix.os }}" != "android" ]]; then
+            if [ -d "MFA" ]; then
+              echo "Copying MFA files to install directory..."
+              mkdir -p install
+              rsync -av --ignore-existing MFA/ install/
+            else
+              echo "MFA directory not found, skipping copy."
+            fi
+          else
+            echo "Skipping copy MFA for Android."
+          fi
 
       - uses: actions/upload-artifact@v4
         with:

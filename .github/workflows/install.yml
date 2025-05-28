@@ -92,7 +92,6 @@ jobs:
           extract: false
       - name: Extract FGO-py Portable Installer (.7z)
         run: |
-          brew install p7zip
           7z x assets/FGO-py.portable.7z -oassets/FGO-py.portable
 
 

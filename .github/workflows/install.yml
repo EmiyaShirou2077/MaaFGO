@@ -86,7 +86,7 @@ jobs:
         uses: robinraju/release-downloader@v1
         with:
           repository: hgjazhgj/FGO-py
-          fileName: "FGO-py.portable"
+          fileName: "FGO-py.portable.7z"
           latest: true
           out-file-path: "assets"
           extract: true

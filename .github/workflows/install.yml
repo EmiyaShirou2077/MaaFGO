@@ -82,6 +82,15 @@ jobs:
           out-file-path: "MFA"
           extract: true
 
+      - name: Download FGO-py
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: hgjazhgj/FGO-py
+          fileName: "FGO-py.portable"
+          latest: true
+          out-file-path: "assets"
+          extract: true
+
       - name: Install
         shell: bash
         run: |

@@ -82,17 +82,18 @@ jobs:
           out-file-path: "MFA"
           extract: true
 
-      - name: Download FGO-py
-        uses: robinraju/release-downloader@v1
-        with:
-          repository: hgjazhgj/FGO-py
-          fileName: "FGO-py.portable.7z"
-          latest: true
-          out-file-path: "assets"
-          extract: false
-      - name: Extract FGO-py Portable Installer (.7z)
-        run: |
-          7z x assets/FGO-py.portable.7z -oassets/FGO-py.portable
+      # - name: Download FGO-py
+      #   uses: robinraju/release-downloader@v1
+      #   with:
+      #     repository: hgjazhgj/FGO-py
+      #     fileName: "FGO-py.portable.7z"
+      #     latest: true
+      #     out-file-path: "assets"
+      #     extract: false
+
+      # - name: Extract FGO-py Portable Installer (.7z)
+      #   run: |
+      #     7z x assets/FGO-py.portable.7z -oassets/FGO-py.portable
 
 
       - name: Install

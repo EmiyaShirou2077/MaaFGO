@@ -33,7 +33,7 @@
     "agent": {
         "child_exec": "python",
         "child_args": [
-            "C:\\Projects\\MaaFGO\\agent\\main.py"
+            "{PROJECT_DIR}/../agent/main.py"
         ]
     },
     "task": [

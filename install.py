@@ -76,18 +76,18 @@ def install_agent():
         dirs_exist_ok=True,
     )
 
-def install_fgopy():
-    fgopy_path = working_dir / "assets" / "FGO-py.portable"
-    if not fgopy_path.exists():
-        print("FGO-py.portable directory not found. Make sure FGO-py.portable.7z is extracted to assets/FGO-py.portable/")
-        return
+# def install_fgopy():
+#     fgopy_path = working_dir / "assets" / "FGO-py.portable"
+#     if not fgopy_path.exists():
+#         print("FGO-py.portable directory not found. Make sure FGO-py.portable.7z is extracted to assets/FGO-py.portable/")
+#         return
 
-    print(f"Copying FGO-py from {fgopy_path} to {install_path}")
-    shutil.copytree(
-        fgopy_path,
-        install_path / "FGO-py",
-        dirs_exist_ok=True,
-    )
+#     print(f"Copying FGO-py from {fgopy_path} to {install_path}")
+#     shutil.copytree(
+#         fgopy_path,
+#         install_path / "FGO-py",
+#         dirs_exist_ok=True,
+#     )
 
 
 

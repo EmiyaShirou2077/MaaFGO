@@ -5,4 +5,4 @@ echo Running FGO-py CLI...
     echo connect
     echo battle
     echo exit
-) | python C:\Projects\MaaFGO\assets\FGO-py\FGO-py\fgo.py cli"
+) | python "%~dp0..\FGO-py\FGO-py\fgo.py" cli

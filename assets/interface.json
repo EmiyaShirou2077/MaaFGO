@@ -41,6 +41,10 @@
             "name": "推图助手",
             "entry": "AutoStory",
             "option":["threshold"]
+        },
+        {
+            "name": "友情点召唤",
+            "entry": "FriendPointSummon"
         }
     ],
     "option":{

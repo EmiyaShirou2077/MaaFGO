@@ -1,0 +1,14 @@
+{
+    "FriendPointSummon": {
+        "recognition": "OCR",
+        "roi": [466,366,363,85],
+        "expected": "友情点召唤",
+        "next": "FreeSummon"
+    },
+    "FreeSummon": {
+        "recognition": "OCR",
+        "roi": [524,488,228,80],
+        "expected": "免费召唤",
+        "action": "Click"
+    }
+}

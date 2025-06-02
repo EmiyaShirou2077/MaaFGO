@@ -214,8 +214,8 @@
     },
     "Battle": {
         "recognition": "OCR",
-        "roi": [1169,287,50,49],
-        "expected": ["御主", "技能"],
+        "roi": [1158,167,75,176],
+        "expected": ["御主", "技能", "战斗"],
         "action": "Command",
         "exec": "{RESOURCE_DIR}/AutoBattle.bat",
         "next": [

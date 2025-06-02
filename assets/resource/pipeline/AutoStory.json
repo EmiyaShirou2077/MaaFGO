@@ -1,14 +1,13 @@
 {
-    "AutoProgress":{
+    "AutoStory":{
         "timeout": 60000,
         "next":[
-            "MapFinish"
+            "AutoStory_MapFinish"
         ],
         "interrupt":[
-            "MapView",
-            "SelectChapter",
+            "AutoStory_MapPage",
+            "AutoStory_ChapterPage",
             "FormationSupport",
-            "FormationConfirmation",
             "StartTask",
             "Battle",
             "Story",
@@ -17,12 +16,12 @@
             "DataUpdate"
         ]
     },
-    "MapFinish":{
+    "AutoStory_MapFinish":{
         "recognition": "OCR",
         "roi": [663,119,551,190],
         "expected": "完成"
     },
-    "MapView":{
+    "AutoStory_MapPage":{
         "recognition": "OCR",
         "roi": [63,21,97,39],
         "expected": "管理室",
@@ -52,7 +51,7 @@
             }
         ],
         "next": [
-            "ClickNextNode"
+            "AutoStory_ClickNextNode"
         ],
         "interrupt":[
             "MinimizeMapandScrollDown"
@@ -80,7 +79,7 @@
             }
         ]
     },
-    "ClickNextNode": {
+    "AutoStory_ClickNextNode": {
         "recognition": "TemplateMatch",
         "roi": [13,5,1263,619],
         "action": "Click",
@@ -89,18 +88,23 @@
         "green_mask": true,
         "target_offset": [0, 50, 0, 0]
     },
-    "SelectChapter":{
+    "AutoStory_ChapterPage":{
         "recognition": "OCR",
-        "roi": [76,25,77,37],
-        "expected": "关闭",
+        "roi": [1091,116,143,482],
+        "expected": ["职阶", "无战斗"],
         "next": [
-            "ClickNextChapter"
-        ],
-        "interrupt": [
+            "AutoStory_SelectNextChapter",
+            "AutoStory_ChapterPage_StartChapterConfirmation",
+            "APRefill",
             "DataUpdate",
-            "CloseMasterTask",
-            "ReturnToMap"
+            "CloseMasterTask"
         ]
+    },
+    "AutoStory_ChapterPage_StartChapterConfirmation": {
+        "recognition": "OCR",
+        "roi": [731,511,222,98],
+        "expected": ["开始", "任务开始"],
+        "action": "Click"
     },
     "ReturnToMap": {
         "recognition": "OCR",
@@ -108,33 +112,16 @@
         "expected": "关闭",
         "action": "Click",
         "next": [
-            "MapView"
+            "AutoStory_MapPage"
         ]
     },
-    "ClickNextChapter": {
+    "AutoStory_SelectNextChapter": {
         "recognition": "TemplateMatch",
         "roi": [629,92,601,503],
         "action": "Click",
         "template": "下一个章节_full.png",
         "threshold": 0.6,
-        "green_mask": true,
-        "next": [
-            "FormationSupport",
-            "NoBattle",
-            "StartTask"
-        ],
-        "interrupt": [
-            "APRefill"
-        ]
-    },
-    "NoBattle": {
-        "recognition": "OCR",
-        "roi": [741,536,185,51],
-        "expected": ["任务开始"],
-        "action": "Click",
-        "next": [
-            "Story"
-        ]
+        "green_mask": true
     },
     "APRefill": {
         "recognition": "OCR",
@@ -166,23 +153,17 @@
         "expected": "最后登录",
         "action": "Click",
         "target": [135,292,0,0],
-        "post_delay": 2000,
-        "next": [
-            "FormationConfirmation"
-        ]
+        "post_delay": 2000
     },
     "FormationConfirmation": {
         "recognition": "OCR",
         "roi": [1035,6,241,57],
-        "expected": "队伍确认",
-        "next": [
-            "StartTask"
-        ]
+        "expected": "队伍确认"
     },
     "StartTask": {
         "recognition": "OCR",
         "roi": [1099,646,136,47],
-        "expected": "开始任务",
+        "expected": ["开始任务", "战斗开始"],
         "action": "Click",
         "post_delay": 2000
     },
@@ -213,8 +194,7 @@
         "expected": "跳过",
         "action": "Click",
         "next": [
-            "SkipStoryConfirmation",
-            "Battle"
+            "SkipStoryConfirmation"
         ],
         "interrupt":[
             "ClickDialog"

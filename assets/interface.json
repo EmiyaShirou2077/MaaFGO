@@ -1,6 +1,6 @@
 {
     "name": "MaaFGO",
-    "url": "https://github.com/EmiyaShirou2077/MaaFGO",
+    "url": "https://github.com/KakkouiiSaber/MaaFGO",
     "controller": [
         {
             "name": "安卓端",
@@ -39,28 +39,18 @@
     "task": [
         {
             "name": "推图助手",
-            "entry": "AutoProgress"
+            "entry": "AutoStory",
+            "option":["threshold"]
         }
     ],
-    "option": {
-        "任务选项1": {
-            "cases": [
-                {
-                    "name": "文本1",
-                    "pipeline_override": {
-                        "OcrTask": {
-                            "text": "文本1"
-                        }
-                    }
-                },
-                {
-                    "name": "文本2",
-                    "pipeline_override": {
-                        "OcrTask": {
-                            "text": "文本2"
-                        }
-                    }
-                }
+    "option":{
+        "threshold":{
+            "cases":[
+                {"name": "0.3", "pipeline_override": {"AutoStory_ClickNextNode": {"threshold": 0.3}}},
+                {"name": "0.35", "pipeline_override": {"AutoStory_ClickNextNode": {"threshold": 0.35}}},
+                {"name": "0.4", "pipeline_override": {"AutoStory_ClickNextNode": {"threshold": 0.4}}},
+                {"name": "0.5", "pipeline_override": {"AutoStory_ClickNextNode": {"threshold": 0.5}}},
+                {"name": "0.8", "pipeline_override": {"AutoStory_ClickNextNode": {"threshold": 0.8}}}
             ]
         }
     }

@@ -21,8 +21,15 @@ def configure_ocr_model():
     else:
         print("Found existing OCR directory, skipping default OCR model import.")
 
+def configure_fgo_py_deps():
+    requirement_file = assets_dir / "FGO-py" / "requirements.txt"
+    if requirement_file.exists():
+        print("Installing FGO-py dependencies...")
+        import subprocess
+        subprocess.run(["pip", "install", "-r", str(requirement_file)], check=True)
 
 if __name__ == "__main__":
     configure_ocr_model()
+    configure_fgo_py_deps()
 
     print("OCR model configured.")

@@ -43,6 +43,26 @@
             "option":["threshold"]
         },
         {
+            "name": "强化任务助手",
+            "entry": "AutoStory",            
+            "pipeline_override": {
+                "AutoStory_MapPage":{
+                    "enabled": false
+                },
+                "AutoStory_ChapterPage":{
+                    "recognition": "OCR",
+                    "roi": [1048,2,229,60],
+                    "expected": "强化任务"
+                },
+                "AutoStory_SelectNextChapter":{
+                    "recognition": "OCR",
+                    "roi": [780,121,82,55],
+                    "expected": "强化关卡"
+                }
+            },
+            "doc": "自动完成强化任务，须在强化任务界面启动"
+        },
+        {
             "name": "友情点召唤",
             "entry": "FriendPointSummon"
         }
